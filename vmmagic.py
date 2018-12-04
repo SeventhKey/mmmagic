@@ -1,21 +1,15 @@
-x=1
-print(x)
+print('x')
 from flask import Flask, render_template, request
-x=x+1
-print(x)
+print('y')
 from pandas import pandas
-x=x+1
-print(x)
+print('z')
 from datetime import date
 
 app = Flask(__name__)
-x=x+1
-print(x)
+print('q')
 
 @app.route('/')
 def vmhome():
-    x = x + 1
-    print(x)
     return render_template("vmhome.html")
 
 @app.route('/results/', methods=['POST'])

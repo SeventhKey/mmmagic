@@ -3,7 +3,7 @@ print(x)
 from flask import Flask, render_template, request
 x=x+1
 print(x)
-import pandas
+from pandas import pandas
 x=x+1
 print(x)
 from datetime import date

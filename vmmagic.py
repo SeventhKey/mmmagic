@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from pandas import pandas
+import pandas
 from datetime import date
 
 app = Flask(__name__)

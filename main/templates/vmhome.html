@@ -1,0 +1,16 @@
+{%extends "nav.html"%}
+{%block content%}
+<div class="container">
+    <h1>VMHome</h1>
+    <form action="{{ url_for('results') }}" method="POST" enctype='multipart/form-data'>
+        <p>Verification Muster</p>
+        <input type="file" name="vm_file">
+        <p>Monitor Mass</p>
+        <input type="file" name="mm_file">
+        <p>CFTPO</p>
+        <input type="file" name="cftpo_file">
+        <button type="submit">Submit!</button>
+    </form>
+</div>
+
+{%endblock%}

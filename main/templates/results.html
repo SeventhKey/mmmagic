@@ -1,0 +1,12 @@
+{%extends "nav.html"%}
+{%block content%}
+    <div>
+        <h1>Results</h1>
+        <p>These members are to be moved out of position.</p>
+        {{ moveoout | safe }}
+        <p>These members are to be moved into position.</p>
+        {{ movein | safe }}
+        <p>This is the list of CFTPO adjustments.</p>
+        {{ cftpo | safe }}
+    </div>
+{%endblock%}

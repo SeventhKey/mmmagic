@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VM Tool</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h3>Navigation</h3>
+        <li><a href='{{ url_for('vmhome') }}'>Start Over</a></li>
+    </div>
+</header>
+<div class="container">
+    {%block content%}
+    {%endblock%}
+</div>
+</body>
+</html>

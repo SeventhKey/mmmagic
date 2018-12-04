@@ -1,1 +1,1 @@
-web: gunicorn vmmagic.py
+web: gunicorn vmmagic:app

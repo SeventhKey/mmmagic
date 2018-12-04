@@ -1,1 +1,1 @@
-web: gunicorn /Verification Muster/vmmagic:app
+web: gunicorn vmmagic:app

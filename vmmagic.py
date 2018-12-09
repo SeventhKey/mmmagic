@@ -1,6 +1,7 @@
+from datetime import date
+from werkzeug import secure_filename
 from flask import Flask, render_template, request
 from pandas import pandas
-from datetime import date
 
 app = Flask(__name__)
 
@@ -12,20 +13,23 @@ def vmhome():
 def results():
     if request.method == "POST":
         try:
-            error = "Request error"
+            error = "Request error! Make sure you have included all files!"
             today = date.today()
             vm = request.files["vm_file"]
+            vm.save(secure_filename(vm.filename))
             mm = request.files["mm_file"]
+            mm.save(secure_filename(mm.filename))
             cftpo = request.files["cftpo_file"]
-            error = "Read error"
+            cftpo.save(secure_filename(cftpo.filename))
+            error = "Read error!"
             dfvm = pandas.read_excel(vm)
             dfmm = pandas.read_excel(mm)
             dfcftpo = pandas.read_excel(cftpo)
-            error = "One service number column has not been named SN and has returned a error"
+            error = "One service number column has not been named SN and has returned a error!"
             moveoutofmm = dfmm[~dfmm.SN.isin(dfvm.SN)]
             moveintomm = dfvm[~dfvm.SN.isin(dfmm.SN)]
             df = dfcftpo[~dfcftpo.SN.isin(dfvm.SN)]
-            error = "CFTPO auto-fill error"
+            error = "CFTPO auto-fill error!"
             df.loc[:, "Stop CFTPO"] = today
             df2 = dfvm[~dfvm.SN.isin(dfcftpo.SN)]
             df2.loc[:, "Start CFTPO"] = today
@@ -38,6 +42,6 @@ def results():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 

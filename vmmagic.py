@@ -1,12 +1,8 @@
-print('x')
 from flask import Flask, render_template, request
-print('y')
 from pandas import pandas
-print('z')
 from datetime import date
 
 app = Flask(__name__)
-print('q')
 
 @app.route('/')
 def vmhome():
@@ -14,18 +10,22 @@ def vmhome():
 
 @app.route('/results/', methods=['POST'])
 def results():
-    try:
-        if request.method == "POST":
+    if request.method == "POST":
+        try:
+            error = "Request error"
             today = date.today()
             vm = request.files["vm_file"]
             mm = request.files["mm_file"]
             cftpo = request.files["cftpo_file"]
+            error = "Read error"
             dfvm = pandas.read_excel(vm)
             dfmm = pandas.read_excel(mm)
             dfcftpo = pandas.read_excel(cftpo)
+            error = "One service number column has not been named SN and has returned a error"
             moveoutofmm = dfmm[~dfmm.SN.isin(dfvm.SN)]
             moveintomm = dfvm[~dfvm.SN.isin(dfmm.SN)]
             df = dfcftpo[~dfcftpo.SN.isin(dfvm.SN)]
+            error = "CFTPO auto-fill error"
             df.loc[:, "Stop CFTPO"] = today
             df2 = dfvm[~dfvm.SN.isin(dfcftpo.SN)]
             df2.loc[:, "Start CFTPO"] = today
@@ -33,13 +33,11 @@ def results():
             resultscftpo = resultscftpo.fillna('')
             return render_template("results.html", moveoout=moveoutofmm.to_html(),
                                    movein=moveintomm.to_html(), cftpo=resultscftpo.to_html())
-        else:
-            return render_template('vmhome.html')
-    except:
-        return render_template("error.html")
+        except:
+            return render_template("error.html", vmerror=error)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
 
-print("1")
+

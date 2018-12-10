@@ -13,11 +13,11 @@ def vmhome():
 def results():
 	error = None
 	
-	if request.files.get('vm_file', None):
+	if not 'vm_file' in request.files:
 		return render_template("error.html", vmerror="Request error! Make sure you have included all files!")
-	elif request.files.get('mm_file', None):
+	elif not 'mm_file' in request.files:
 		return render_template("error.html", vmerror="Request error! Make sure you have included all files!")
-	elif request.files.get('cftpo_file', None):
+	elif not 'cftpo_file' in request.files:
 		return render_template("error.html", vmerror="Request error! Make sure you have included all files!")
 	
 	try:

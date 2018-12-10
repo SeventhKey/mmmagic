@@ -17,13 +17,10 @@ def results():
             today = date.today()
             vm = request.files["vm_file"]
             dfvm = pandas.read_excel(vm)
-            vm.save(secure_filename(vm.filename))
             mm = request.files["mm_file"]
             dfmm = pandas.read_excel(mm)
-            mm.save(secure_filename(mm.filename))
             cftpo = request.files["cftpo_file"]
             dfcftpo = pandas.read_excel(cftpo)
-            cftpo.save(secure_filename(cftpo.filename))
             error = "One service number column has not been named SN and has returned a error!"
             moveoutofmm = dfmm[~dfmm.SN.isin(dfvm.SN)]
             moveintomm = dfvm[~dfvm.SN.isin(dfmm.SN)]

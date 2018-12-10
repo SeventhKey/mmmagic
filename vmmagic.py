@@ -13,15 +13,19 @@ def vmhome():
 def results():
 	error = None
 	
+	if request.files.get('vm_file', None):
+		return render_template("error.html", vmerror="Request error! Make sure you have included all files!")
+	elif request.files.get('mm_file', None):
+		return render_template("error.html", vmerror="Request error! Make sure you have included all files!")
+	elif request.files.get('cftpo_file', None):
+		return render_template("error.html", vmerror="Request error! Make sure you have included all files!")
+	
 	try:
-		vm = request.files["vm_file"]
-		dfvm = pandas.read_excel(vm)
-		mm = request.files["mm_file"]
-		dfmm = pandas.read_excel(mm)
-		cftpo = request.files["cftpo_file"]
-		dfcftpo = pandas.read_excel(cftpo)
+		dfvm = pandas.read_excel(request.files["vm_file"])
+		dfmm = pandas.read_excel(request.files["mm_file"])
+		dfcftpo = pandas.read_excel(request.files["cftpo_file"])
 	except:
-		error = "Request error! Make sure you have included all files!"
+		error = "Inoperable File. Please confirm you have the correct file."
 		
 	try:
 		moveoutofmm = dfmm[~dfmm.SN.isin(dfvm.SN)]
